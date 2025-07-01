@@ -1,1 +1,1 @@
-Human Resource Management system brandora
+Human Resource Management system for brandora
