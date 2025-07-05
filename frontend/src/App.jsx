@@ -13,13 +13,12 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route index element={<Login />} />
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPassword" element={<FogotPassword />} />
         <Route path="/verifyOTP" element={<OtpVerification />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
-
-        <Route path="/home" element={<Home />} />
 
         <Route path="/admin-dashboard" element={<Dashboard />}></Route>
         <Route
