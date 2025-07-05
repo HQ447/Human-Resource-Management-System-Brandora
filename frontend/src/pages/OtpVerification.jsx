@@ -1,7 +1,7 @@
 import React from "react";
 
 function OtpVerification() {
-  return <div>O</div>;
+  return <div>Otp</div>;
 }
 
 export default OtpVerification;
