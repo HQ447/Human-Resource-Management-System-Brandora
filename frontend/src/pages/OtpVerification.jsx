@@ -1,17 +1,28 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 function OtpVerification() {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/hrm/otpVerification", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ otp }),
-    });
-    const data = await res.json();
-    console.log(data);
+    try {
+      const res = await fetch("http://localhost:8080/hrm/otpVerification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ otp }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        navigate("/resetPassword");
+        console.log("otp verified");
+      }
+
+      console.log(data);
+    } catch (error) {
+      console.log("Error in otp verification", error);
+    }
   };
 
   return (

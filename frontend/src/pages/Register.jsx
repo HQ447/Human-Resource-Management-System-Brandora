@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/hrm/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    console.log(data);
+    try {
+      const res = await fetch("http://localhost:8080/hrm/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log(data);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("error in registration", error);
+    }
   };
 
   return (

@@ -1,17 +1,26 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 function FogotPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/hrm/fogotPassword", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    const data = await res.json();
-    console.log(data);
+    try {
+      const res = await fetch("http://localhost:8080/hrm/fogotPassword", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        navigate("/verifyOTP");
+        console.log(data);
+      }
+    } catch (error) {
+      console.log("error in forgot password", error);
+    }
   };
 
   return (

@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/hrm/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    console.log(data);
+    try {
+      const res = await fetch("http://localhost:8080/hrm/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      console.log(data.user);
+
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("name", data.user.name);
+        localStorage.setItem("role", data.user.role);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("error in login", error);
+    }
   };
 
   return (

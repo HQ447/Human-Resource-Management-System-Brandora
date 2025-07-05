@@ -4,7 +4,7 @@ function Home() {
   return (
     <div>
       <Navbar />
-      landing page
+      <div className="px-20 py-10">Landing page</div>
     </div>
   );
 }
